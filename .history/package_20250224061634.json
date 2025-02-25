@@ -1,4 +1,4 @@
-{
+,{
   "name": "llama-coder",
   "displayName": "Llama Coder",
   "description": "Better and self-hosted Github Copilot replacement",
@@ -31,9 +31,7 @@
   "activationEvents": [
     "onStartupFinished"
   ],
-  "extensionKind": [
-    "ui"
-  ],
+  "extensionKind": ["ui"],
   "main": "./out/extension.js",
   "contributes": {
     "commands": [
@@ -170,17 +168,17 @@
   },
   "scripts": {
     "vscode:prepublish": "npm run compile",
-    "compile": "npx tsc -p ./",
-    "watch": "npx tsc -watch -p ./",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
     "pretest": "npm run compile && npm run lint",
     "lint": "eslint src --ext ts",
     "test": "jest",
     "package": "npx @vscode/vsce package"
   },
   "devDependencies": {
-    "@types/jest": "^29.5.14",
-    "@types/node": "^18.19.76",
-    "@types/vscode": "^1.97.0",
+    "@types/jest": "^29.5.10",
+    "@types/node": "18.x",
+    "@types/vscode": "^1.84.0",
     "@typescript-eslint/eslint-plugin": "^6.9.0",
     "@typescript-eslint/parser": "^6.9.0",
     "dotenv": "^16.3.1",
