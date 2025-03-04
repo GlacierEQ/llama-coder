@@ -1,5 +1,5 @@
 import { lineGenerator } from "./lineGenerator";
-import { info } from "./log";
+import { info, warn } from "./log";
 
 export type OllamaToken = {
     model: string,
@@ -13,8 +13,8 @@ export async function* ollamaTokenGenerator(url: string, data: any, bearerToken:
         let parsed: OllamaToken;
         try {
             parsed = JSON.parse(line) as OllamaToken;
-        } catch (e) { 
-            console.warn('Receive wrong line: ' + line);
+        } catch (e) {
+            warn('Receive wrong line: ' + line);
             continue;
         }
         yield parsed;

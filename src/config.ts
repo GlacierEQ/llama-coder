@@ -1,5 +1,18 @@
-import vscode from 'vscode';
+declare const vscode: any;
 import { ModelFormat } from './prompts/processors/models';
+import { error } from './modules/log';
+
+function isValidUrl(url: string): boolean {
+    try {
+        new URL(url);
+        return true;
+    } catch {
+        return false;
+    }
+}
+
+
+
 
 class Config {
 
@@ -15,19 +28,38 @@ class Config {
         if (endpoint === '') {
             endpoint = 'http://127.0.0.1:11434';
         }
-        let bearerToken = config.get('bearerToken') as string;
+        
+        // Validate endpoint URL
+        try {
+            if (!isValidUrl(endpoint)) {
+                throw new Error('Invalid URL format');
+            }
+
+        } catch (err) {
+            error('Invalid endpoint URL', err as Error);
+            endpoint = 'http://127.0.0.1:11434';
+        }
+
+        let bearerToken = (config.get('bearerToken') as string || '').trim();
+        if (bearerToken.length > 512) {
+            error('Bearer token is too long');
+            bearerToken = '';
+        }
+
 
         // Load general paremeters
-        let maxLines = config.get('maxLines') as number;
-        let maxTokens = config.get('maxTokens') as number;
-        let temperature = config.get('temperature') as number;
+        let maxLines = Math.min(Math.max(config.get('maxLines') as number || 10, 1), 100);
+        let maxTokens = Math.min(Math.max(config.get('maxTokens') as number || 50, 10), 1000);
+        let temperature = Math.min(Math.max(config.get('temperature') as number || 0.7, 0), 1);
+
 
         // Load model
-        let modelName = config.get('model') as string;
+        let modelName = (config.get('model') as string || 'codellama').trim();
         let modelFormat: ModelFormat = 'codellama';
         if (modelName === 'custom') {
-            modelName = config.get('custom.model') as string;
-            modelFormat = config.get('cutom.format') as ModelFormat;
+            modelName = (config.get('custom.model') as string || 'codellama').trim();
+            modelFormat = config.get('custom.format') as ModelFormat || 'codellama';
+
         } else {
             if (modelName.startsWith('deepseek-coder')) {
                 modelFormat = 'deepseek';
@@ -36,7 +68,8 @@ class Config {
             }
         }
 
-        let delay = config.get('delay') as number;
+        let delay = Math.min(Math.max(config.get('delay') as number || 100, 0), 5000);
+
 
         return {
             endpoint,

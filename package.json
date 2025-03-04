@@ -2,7 +2,7 @@
   "name": "llama-coder",
   "displayName": "Llama Coder",
   "description": "Better and self-hosted Github Copilot replacement",
-  "version": "0.0.14",
+  "version": "0.0.15",
   "icon": "icon.png",
   "publisher": "ex3ndr",
   "repository": {
@@ -30,7 +30,9 @@
   "activationEvents": [
     "onStartupFinished"
   ],
-  "extensionKind": ["ui"],
+  "extensionKind": [
+    "ui"
+  ],
   "main": "./out/extension.js",
   "contributes": {
     "commands": [
@@ -49,6 +51,70 @@
       {
         "command": "llama.toggle",
         "title": "Llama Coder: Toggle"
+      },
+      {
+        "command": "llama.securityConfig",
+        "title": "Llama Coder: Security Configuration"
+      },
+      {
+        "command": "llama.resetRateLimits",
+        "title": "Llama Coder: Reset Rate Limits"
+      },
+      {
+        "command": "llama.bees.configure",
+        "title": "Llama Coder: Configure Builder Bees"
+      },
+      {
+        "command": "llama.bees.runAll",
+        "title": "Llama Coder: Run All Builder Bees"
+      },
+      {
+        "command": "llama.bees.stopAll",
+        "title": "Llama Coder: Stop All Builder Bees"
+      },
+      {
+        "command": "llama.bees.run.lintBee",
+        "title": "Llama Coder: Run Lint Bee"
+      },
+      {
+        "command": "llama.bees.run.formatBee",
+        "title": "Llama Coder: Run Format Bee"
+      },
+      {
+        "command": "llama.bees.run.buildBee",
+        "title": "Llama Coder: Run Build Bee"
+      },
+      {
+        "command": "llama.bees.run.testBee",
+        "title": "Llama Coder: Run Test Bee"
+      },
+      {
+        "command": "llama.bees.run.optimizeBee",
+        "title": "Llama Coder: Run Optimize Bee"
+      },
+      {
+        "command": "llama.bees.run.refactorBee",
+        "title": "Llama Coder: Run Refactor Bee"
+      },
+      {
+        "command": "llama.bees.run.documentationBee",
+        "title": "Llama Coder: Run Documentation Bee"
+      },
+      {
+        "command": "llama.bees.run.securityBee",
+        "title": "Llama Coder: Run Security Bee"
+      },
+      {
+        "command": "llama.nlCodeGen.generateFunction",
+        "title": "Llama Coder: Generate Function from NL"
+      },
+      {
+        "command": "llama.nlCodeGen.generateClass",
+        "title": "Llama Coder: Generate Class from NL"
+      },
+      {
+        "command": "llama.nlCodeGen.generateModule",
+        "title": "Llama Coder: Generate Module from NL"
       }
     ],
     "configuration": [
@@ -160,6 +226,114 @@
             "order": 8,
             "minimum": -1,
             "maximum": 5000
+          },
+          "security.rateLimit.enabled": {
+            "type": "boolean",
+            "default": true,
+            "description": "Enable API rate limiting to prevent abuse",
+            "order": 30
+          },
+          "security.rateLimit.maxRequestsPerMinute": {
+            "type": "number",
+            "default": 60,
+            "description": "Maximum number of requests allowed per minute",
+            "order": 31
+          },
+          "security.inputValidation.enabled": {
+            "type": "boolean",
+            "default": true,
+            "description": "Enable input validation to protect against prompt injection",
+            "order": 32
+          },
+          "security.requireEncryption": {
+            "type": "boolean",
+            "default": true,
+            "description": "Require encrypted communication for remote connections",
+            "order": 33
+          },
+          "llama.bees.enabled": {
+            "type": "boolean",
+            "default": true,
+            "description": "Enable Builder Bees feature",
+            "order": 40
+          },
+          "llama.bees.runOnSave": {
+            "type": "boolean",
+            "default": true,
+            "description": "Run eligible Builder Bees automatically when files are saved",
+            "order": 41
+          },
+          "llama.bees.lintBee.enabled": {
+            "type": "boolean",
+            "default": true,
+            "description": "Enable Lint Bee to analyze code for potential errors",
+            "order": 42
+          },
+          "llama.bees.formatBee.enabled": {
+            "type": "boolean",
+            "default": true,
+            "description": "Enable Format Bee to automatically format code",
+            "order": 43
+          },
+          "llama.bees.buildBee.enabled": {
+            "type": "boolean",
+            "default": false,
+            "description": "Enable Build Bee to assist with building and compiling code",
+            "order": 44
+          },
+          "llama.bees.testBee.enabled": {
+            "type": "boolean",
+            "default": false,
+            "description": "Enable Test Bee to run and report test results",
+            "order": 45
+          },
+          "llama.bees.optimizeBee.enabled": {
+            "type": "boolean",
+            "default": false,
+            "description": "Enable Optimize Bee to suggest code performance improvements",
+            "order": 46
+          },
+          "llama.bees.refactorBee.enabled": {
+            "type": "boolean",
+            "default": false,
+            "description": "Enable Refactor Bee to suggest code refactoring opportunities",
+            "order": 47
+          },
+          "llama.bees.documentationBee.enabled": {
+            "type": "boolean",
+            "default": false,
+            "description": "Enable Documentation Bee to help with code documentation",
+            "order": 48
+          },
+          "llama.bees.securityBee.enabled": {
+            "type": "boolean",
+            "default": true,
+            "description": "Enable Security Bee to scan for security vulnerabilities",
+            "order": 49
+          },
+          "nlCodeGen.enabled": {
+            "type": "boolean",
+            "default": true,
+            "description": "Enable Natural Language Code Generation feature",
+            "order": 50
+          },
+          "nlCodeGen.maxTokens": {
+            "type": "number",
+            "default": 1000,
+            "description": "Maximum tokens to generate for code generation",
+            "order": 51
+          },
+          "nlCodeGen.maxHistoryItems": {
+            "type": "number",
+            "default": 100,
+            "description": "Maximum number of code generation history items to store",
+            "order": 52
+          },
+          "nlCodeGen.autoIncludeContext": {
+            "type": "boolean",
+            "default": true,
+            "description": "Automatically include editor context in code generation prompts",
+            "order": 53
           }
         }
       }

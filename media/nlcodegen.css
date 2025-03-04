@@ -1,0 +1,221 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    padding: 15px;
+    box-sizing: border-box;
+}
+
+.tabs {
+    display: flex;
+    margin-bottom: 15px;
+}
+
+.tab {
+    padding: 8px 16px;
+    cursor: pointer;
+    background-color: var(--vscode-tab-inactiveBackground);
+    border: none;
+    color: var(--vscode-tab-inactiveForeground);
+    outline: none;
+}
+
+.tab.active {
+    background-color: var(--vscode-tab-activeBackground);
+    color: var(--vscode-tab-activeForeground);
+    border-bottom: 2px solid var(--vscode-focusBorder);
+}
+
+.panel {
+    display: none;
+    flex: 1;
+    overflow-y: auto;
+}
+
+.panel.active {
+    display: flex;
+    flex-direction: column;
+}
+
+.input-group {
+    margin-bottom: 15px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    color: var(--vscode-foreground);
+}
+
+textarea,
+select {
+    width: 100%;
+    padding: 8px;
+    background-color: var(--vscode-input-background);
+    color: var(--vscode-input-foreground);
+    border: 1px solid var(--vscode-input-border);
+    border-radius: 2px;
+    outline: none;
+}
+
+.options-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.options-container .input-group {
+    flex: 1;
+    min-width: 200px;
+    margin-bottom: 0;
+}
+
+.checkbox-group {
+    display: flex;
+    align-items: center;
+}
+
+.checkbox-group input {
+    margin-right: 8px;
+}
+
+.button-group {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.primary-button {
+    padding: 8px 16px;
+    background-color: var(--vscode-button-background);
+    color: var(--vscode-button-foreground);
+    border: none;
+    border-radius: 2px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.secondary-button {
+    padding: 8px 16px;
+    background-color: var(--vscode-button-secondaryBackground);
+    color: var(--vscode-button-secondaryForeground);
+    border: none;
+    border-radius: 2px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.primary-button:hover,
+.secondary-button:hover {
+    opacity: 0.8;
+}
+
+.code-container {
+    border: 1px solid var(--vscode-panel-border);
+    border-radius: 3px;
+    margin-bottom: 20px;
+    background-color: var(--vscode-editor-background);
+}
+
+pre {
+    margin: 0;
+    padding: 10px;
+    overflow: auto;
+    max-height: 300px;
+}
+
+code {
+    font-family: var(--vscode-editor-font-family);
+    font-size: var(--vscode-editor-font-size);
+    color: var(--vscode-editor-foreground);
+}
+
+.code-actions {
+    display: flex;
+    gap: 5px;
+    padding: 5px;
+    background-color: var(--vscode-editorGroupHeader-tabsBackground);
+}
+
+.action-button {
+    padding: 4px 8px;
+    background: transparent;
+    border: none;
+    color: var(--vscode-foreground);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 3px;
+}
+
+.action-button:hover {
+    background-color: var(--vscode-button-hoverBackground);
+}
+
+.history-controls {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 15px;
+}
+
+.history-item {
+    border: 1px solid var(--vscode-panel-border);
+    border-radius: 3px;
+    margin-bottom: 15px;
+    overflow: hidden;
+}
+
+.history-item-header {
+    padding: 8px;
+    background-color: var(--vscode-editorGroupHeader-tabsBackground);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.history-item-description {
+    padding: 10px;
+    background-color: var(--vscode-editor-background);
+    border-bottom: 1px solid var(--vscode-panel-border);
+}
+
+.history-item-code {
+    position: relative;
+}
+
+.history-item-actions {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    display: flex;
+    gap: 5px;
+}
+
+.language-tag {
+    font-size: 0.8em;
+    background-color: var(--vscode-badge-background);
+    color: var(--vscode-badge-foreground);
+    padding: 2px 6px;
+    border-radius: 10px;
+}
+
+.timestamp {
+    font-size: 0.8em;
+    color: var(--vscode-descriptionForeground);
+}
+
+.hidden {
+    display: none;
+}
+
+.placeholder {
+    color: var(--vscode-descriptionForeground);
+    text-align: center;
+    padding: 20px;
+    font-style: italic;
+}

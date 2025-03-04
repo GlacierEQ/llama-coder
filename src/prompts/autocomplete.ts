@@ -30,6 +30,35 @@ export async function autocomplete(args: {
         }
     };
 
+    function updateBlockStack(blockStack: ('[' | '(' | '{')[], c: string): boolean {
+        if (c === '[' || c === '(' || c === '{') {
+            blockStack.push(c);
+            return true;
+        }
+        if (c === ']') {
+            if (blockStack.length && blockStack[blockStack.length - 1] === '[') {
+                blockStack.pop();
+                return true;
+            }
+            return false;
+        }
+        if (c === ')') {
+            if (blockStack.length && blockStack[blockStack.length - 1] === '(') {
+                blockStack.pop();
+                return true;
+            }
+            return false;
+        }
+        if (c === '}') {
+            if (blockStack.length && blockStack[blockStack.length - 1] === '{') {
+                blockStack.pop();
+                return true;
+            }
+            return false;
+        }
+        return true;
+    }
+
     // Receiving tokens
     let res = '';
     let totalLines = 1;
@@ -41,41 +70,9 @@ export async function autocomplete(args: {
 
         // Block stack
         for (let c of tokens.response) {
-
-            // Open block
-            if (c === '[') {
-                blockStack.push('[');
-            } else if (c === '(') {
-                blockStack.push('(');
-            }
-            if (c === '{') {
-                blockStack.push('{');
-            }
-
-            // Close block
-            if (c === ']') {
-                if (blockStack.length > 0 && blockStack[blockStack.length - 1] === '[') {
-                    blockStack.pop();
-                } else {
-                    info('Block stack error, breaking.');
-                    break outer;
-                }
-            }
-            if (c === ')') {
-                if (blockStack.length > 0 && blockStack[blockStack.length - 1] === '(') {
-                    blockStack.pop();
-                } else {
-                    info('Block stack error, breaking.');
-                    break outer;
-                }
-            }
-            if (c === '}') {
-                if (blockStack.length > 0 && blockStack[blockStack.length - 1] === '{') {
-                    blockStack.pop();
-                } else {
-                    info('Block stack error, breaking.');
-                    break outer;
-                }
+            if (!updateBlockStack(blockStack, c)) {
+                info('Block stack error, breaking.');
+                break outer;
             }
 
             // Append charater

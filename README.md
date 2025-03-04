@@ -43,9 +43,42 @@ Currently Llama Coder supports only Codellama. Model is quantized in different w
 * m - slow on MacOS
 * g - slow on older NVidia cards (pre 30xx)
 
+## Security Features
+
+Llama Coder includes several security features to protect your code and data:
+
+* 🔒 **No telemetry or tracking** - Your code and completions stay on your machine
+* 🛡️ **Input validation** - Protection against prompt injection and other security issues
+* 🔄 **Rate limiting** - Prevents abuse and resource exhaustion
+* 🔐 **Encrypted communications** - TLS for remote connections
+* 📝 **Output safety** - Validation to prevent malicious code generation
+
+For more information, see the [Security documentation](./SECURITY.md).
+
+## Documentation
+
+Comprehensive documentation is available in the `/docs` directory:
+
+- [Getting Started](./docs/getting-started.md)
+- [Configuration](./docs/configuration.md)
+- [Model Selection](./docs/models.md)
+- [Language Support](./docs/language-support.md)
+- [Architecture](./docs/architecture.md)
+- [Comparison](./docs/comparison.md)
+- [Accessibility](./docs/accessibility.md)
+- [Roadmap](./docs/roadmap.md)
+- [Keyboard Shortcuts](./docs/shortcuts.md)
+- [Workflows](./docs/workflows/solo-development.md)
+- [FAQ](./docs/faq.md)
+- [Full Documentation](./docs/index.md)
+
 ## Troubleshooting
 
-Most of the problems could be seen in output of a plugin in VS Code extension output.
+If you encounter issues:
+
+1. Check the [Network Connectivity](./docs/troubleshooting/network-connectivity.md) guide
+2. Look for error messages in the VS Code extension output panel
+3. Visit our [GitHub Issues](https://github.com/user/llama-coder/issues) page
 
 ## Changelog
 
