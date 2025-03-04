@@ -1,10 +1,10 @@
 {
   "name": "llama-coder",
   "displayName": "Llama Coder",
-  "description": "Better and self-hosted Github Copilot replacement",
-  "version": "0.0.15",
+  "description": "Self-hosted GitHub Copilot replacement using Ollama",
+  "version": "0.1.0",
   "icon": "icon.png",
-  "publisher": "ex3ndr",
+  "publisher": "ollama-super",
   "repository": {
     "type": "git",
     "url": "https://github.com/ex3ndr/llama-coder.git"
@@ -12,10 +12,12 @@
   "bugs": {
     "url": "https://github.com/ex3ndr/llama-coder/issues"
   },
+  "private": true,
   "license": "MIT",
   "categories": [
+    "Programming Languages",
     "Machine Learning",
-    "Programming Languages"
+    "Other"
   ],
   "keywords": [
     "code",
@@ -25,7 +27,7 @@
     "development"
   ],
   "engines": {
-    "vscode": "^1.84.0"
+    "vscode": "^1.60.0"
   },
   "activationEvents": [
     "onStartupFinished"
@@ -33,331 +35,69 @@
   "extensionKind": [
     "ui"
   ],
-  "main": "./out/extension.js",
+  "main": "./dist/extension.js",
   "contributes": {
     "commands": [
       {
-        "command": "llama.openSettings",
-        "title": "Llama Coder: Open Settings"
+        "command": "llamaCoder.enable",
+        "title": "Enable Llama Coder"
       },
       {
-        "command": "llama.pause",
-        "title": "Llama Coder: Pause"
-      },
-      {
-        "command": "llama.resume",
-        "title": "Llama Coder: Resume"
-      },
-      {
-        "command": "llama.toggle",
-        "title": "Llama Coder: Toggle"
-      },
-      {
-        "command": "llama.securityConfig",
-        "title": "Llama Coder: Security Configuration"
-      },
-      {
-        "command": "llama.resetRateLimits",
-        "title": "Llama Coder: Reset Rate Limits"
-      },
-      {
-        "command": "llama.bees.configure",
-        "title": "Llama Coder: Configure Builder Bees"
-      },
-      {
-        "command": "llama.bees.runAll",
-        "title": "Llama Coder: Run All Builder Bees"
-      },
-      {
-        "command": "llama.bees.stopAll",
-        "title": "Llama Coder: Stop All Builder Bees"
-      },
-      {
-        "command": "llama.bees.run.lintBee",
-        "title": "Llama Coder: Run Lint Bee"
-      },
-      {
-        "command": "llama.bees.run.formatBee",
-        "title": "Llama Coder: Run Format Bee"
-      },
-      {
-        "command": "llama.bees.run.buildBee",
-        "title": "Llama Coder: Run Build Bee"
-      },
-      {
-        "command": "llama.bees.run.testBee",
-        "title": "Llama Coder: Run Test Bee"
-      },
-      {
-        "command": "llama.bees.run.optimizeBee",
-        "title": "Llama Coder: Run Optimize Bee"
-      },
-      {
-        "command": "llama.bees.run.refactorBee",
-        "title": "Llama Coder: Run Refactor Bee"
-      },
-      {
-        "command": "llama.bees.run.documentationBee",
-        "title": "Llama Coder: Run Documentation Bee"
-      },
-      {
-        "command": "llama.bees.run.securityBee",
-        "title": "Llama Coder: Run Security Bee"
-      },
-      {
-        "command": "llama.nlCodeGen.generateFunction",
-        "title": "Llama Coder: Generate Function from NL"
-      },
-      {
-        "command": "llama.nlCodeGen.generateClass",
-        "title": "Llama Coder: Generate Class from NL"
-      },
-      {
-        "command": "llama.nlCodeGen.generateModule",
-        "title": "Llama Coder: Generate Module from NL"
+        "command": "llamaCoder.disable",
+        "title": "Disable Llama Coder"
       }
     ],
-    "configuration": [
-      {
-        "title": "Llama coder",
-        "properties": {
-          "notebook.includeMarkup": {
-            "type": "boolean",
-            "default": true,
-            "description": "Include markup cell types in prompt"
-          },
-          "notebook.includeCellOutputs": {
-            "type": "boolean",
-            "default": false,
-            "description": "Include Cell previous output results in the prompt"
-          },
-          "notebook.cellOutputLimit": {
-            "type": "number",
-            "default": 256,
-            "description": "truncate cell output result if exceeds this limit"
-          },
-          "inference.endpoint": {
-            "type": "string",
-            "default": "",
-            "description": "Ollama Server Endpoint. Empty for local instance. Example: http://192.168.0.100:11434",
-            "order": 1
-          },
-          "inference.bearerToken": {
-            "type": "string",
-            "default": "",
-            "description": "Auth Bearer token that should be used for secure requests. Leave empty if not desired."
-          },
-          "inference.model": {
-            "type": "string",
-            "enum": [
-              "stable-code:3b-code-q4_0",
-              "codellama:7b-code-q4_K_S",
-              "codellama:7b-code-q4_K_M",
-              "codellama:7b-code-q6_K",
-              "codellama:7b-code-fp16",
-              "codellama:13b-code-q4_K_S",
-              "codellama:13b-code-q4_K_M",
-              "codellama:13b-code-q6_K",
-              "codellama:13b-code-fp16",
-              "codellama:34b-code-q4_K_S",
-              "codellama:34b-code-q4_K_M",
-              "codellama:34b-code-q6_K",
-              "codellama:70b-code-q4_K_S",
-              "codellama:70b-code-q4_K_M",
-              "codellama:70b-code-q6_K",
-              "codellama:70b-code-fp16",
-              "deepseek-coder:1.3b-base-q4_0",
-              "deepseek-coder:1.3b-base-q4_1",
-              "deepseek-coder:1.3b-base-q8_0",
-              "deepseek-coder:6.7b-base-q4_K_S",
-              "deepseek-coder:6.7b-base-q4_K_M",
-              "deepseek-coder:6.7b-base-q5_K_S",
-              "deepseek-coder:6.7b-base-q5_K_M",
-              "deepseek-coder:6.7b-base-q8_0",
-              "deepseek-coder:6.7b-base-fp16",
-              "deepseek-coder:33b-base-q4_K_S",
-              "deepseek-coder:33b-base-q4_K_M",
-              "deepseek-coder:33b-base-fp16",
-              "custom"
-            ],
-            "default": "stable-code:3b-code-q4_0",
-            "description": "Inference model to use",
-            "order": 2
-          },
-          "inference.temperature": {
-            "type": "number",
-            "default": 0.2,
-            "description": "Temperature of the model. Increasing the temperature will make the model answer more creatively.",
-            "order": 3
-          },
-          "inference.custom.model": {
-            "type": "string",
-            "default": "",
-            "description": "Custom model name",
-            "order": 4
-          },
-          "inference.custom.format": {
-            "type": "string",
-            "enum": [
-              "stable-code",
-              "codellama",
-              "deepseek"
-            ],
-            "default": "stable-code",
-            "description": "Custom model prompt format",
-            "order": 5
-          },
-          "inference.maxLines": {
-            "type": "number",
-            "default": 16,
-            "description": "Max number of lines to be keep.",
-            "order": 6
-          },
-          "inference.maxTokens": {
-            "type": "number",
-            "default": 256,
-            "description": "Max number of new tokens to be generated.",
-            "order": 7
-          },
-          "inference.delay": {
-            "type": "number",
-            "default": 250,
-            "description": "Completion request delay in milliseconds (0 - no delay, -1 - no completions).",
-            "order": 8,
-            "minimum": -1,
-            "maximum": 5000
-          },
-          "security.rateLimit.enabled": {
-            "type": "boolean",
-            "default": true,
-            "description": "Enable API rate limiting to prevent abuse",
-            "order": 30
-          },
-          "security.rateLimit.maxRequestsPerMinute": {
-            "type": "number",
-            "default": 60,
-            "description": "Maximum number of requests allowed per minute",
-            "order": 31
-          },
-          "security.inputValidation.enabled": {
-            "type": "boolean",
-            "default": true,
-            "description": "Enable input validation to protect against prompt injection",
-            "order": 32
-          },
-          "security.requireEncryption": {
-            "type": "boolean",
-            "default": true,
-            "description": "Require encrypted communication for remote connections",
-            "order": 33
-          },
-          "llama.bees.enabled": {
-            "type": "boolean",
-            "default": true,
-            "description": "Enable Builder Bees feature",
-            "order": 40
-          },
-          "llama.bees.runOnSave": {
-            "type": "boolean",
-            "default": true,
-            "description": "Run eligible Builder Bees automatically when files are saved",
-            "order": 41
-          },
-          "llama.bees.lintBee.enabled": {
-            "type": "boolean",
-            "default": true,
-            "description": "Enable Lint Bee to analyze code for potential errors",
-            "order": 42
-          },
-          "llama.bees.formatBee.enabled": {
-            "type": "boolean",
-            "default": true,
-            "description": "Enable Format Bee to automatically format code",
-            "order": 43
-          },
-          "llama.bees.buildBee.enabled": {
-            "type": "boolean",
-            "default": false,
-            "description": "Enable Build Bee to assist with building and compiling code",
-            "order": 44
-          },
-          "llama.bees.testBee.enabled": {
-            "type": "boolean",
-            "default": false,
-            "description": "Enable Test Bee to run and report test results",
-            "order": 45
-          },
-          "llama.bees.optimizeBee.enabled": {
-            "type": "boolean",
-            "default": false,
-            "description": "Enable Optimize Bee to suggest code performance improvements",
-            "order": 46
-          },
-          "llama.bees.refactorBee.enabled": {
-            "type": "boolean",
-            "default": false,
-            "description": "Enable Refactor Bee to suggest code refactoring opportunities",
-            "order": 47
-          },
-          "llama.bees.documentationBee.enabled": {
-            "type": "boolean",
-            "default": false,
-            "description": "Enable Documentation Bee to help with code documentation",
-            "order": 48
-          },
-          "llama.bees.securityBee.enabled": {
-            "type": "boolean",
-            "default": true,
-            "description": "Enable Security Bee to scan for security vulnerabilities",
-            "order": 49
-          },
-          "nlCodeGen.enabled": {
-            "type": "boolean",
-            "default": true,
-            "description": "Enable Natural Language Code Generation feature",
-            "order": 50
-          },
-          "nlCodeGen.maxTokens": {
-            "type": "number",
-            "default": 1000,
-            "description": "Maximum tokens to generate for code generation",
-            "order": 51
-          },
-          "nlCodeGen.maxHistoryItems": {
-            "type": "number",
-            "default": 100,
-            "description": "Maximum number of code generation history items to store",
-            "order": 52
-          },
-          "nlCodeGen.autoIncludeContext": {
-            "type": "boolean",
-            "default": true,
-            "description": "Automatically include editor context in code generation prompts",
-            "order": 53
-          }
+    "configuration": {
+      "title": "Llama Coder",
+      "properties": {
+        "llamaCoder.enabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable/disable Llama Coder"
+        },
+        "llamaCoder.endpoint": {
+          "type": "string",
+          "default": "http://localhost:11434",
+          "description": "Ollama API endpoint"
+        },
+        "llamaCoder.model": {
+          "type": "string",
+          "default": "codellama:13b-code-q4_K_M",
+          "description": "Model to use for code completion"
         }
       }
-    ]
+    }
   },
   "scripts": {
-    "vscode:prepublish": "yarn run compile",
-    "compile": "tsc -p ./",
-    "watch": "tsc -watch -p ./",
-    "pretest": "yarn run compile && yarn run lint",
+    "vscode:prepublish": "npm run package",
+    "compile": "webpack",
+    "watch": "webpack --watch",
+    "package": "webpack --mode production --devtool hidden-source-map",
+    "compile-tests": "tsc -p . --outDir out",
+    "watch-tests": "tsc -p . -w --outDir out",
+    "pretest": "npm run compile-tests && npm run compile && npm run lint",
     "lint": "eslint src --ext ts",
-    "test": "jest",
-    "package": "npx @vscode/vsce package"
+    "test": "node ./out/test/runTest.js",
+    "dev": "webpack --watch"
+  },
+  "dependencies": {
+    "@ollama-super/common": "^0.1.0",
+    "axios": "^0.27.2"
   },
   "devDependencies": {
-    "@types/jest": "^29.5.10",
-    "@types/node": "18.x",
-    "@types/vscode": "^1.84.0",
-    "@typescript-eslint/eslint-plugin": "^6.9.0",
-    "@typescript-eslint/parser": "^6.9.0",
-    "dotenv": "^16.3.1",
-    "eslint": "^8.52.0",
-    "jest": "^29.7.0",
-    "ts-jest": "^29.1.1",
-    "typescript": "^5.2.2"
+    "@types/glob": "^8.0.0",
+    "@types/mocha": "^10.0.0",
+    "@types/node": "16.x",
+    "@types/vscode": "^1.60.0",
+    "@typescript-eslint/eslint-plugin": "^5.38.1",
+    "@typescript-eslint/parser": "^5.38.1",
+    "@vscode/test-electron": "^2.1.5",
+    "eslint": "^8.24.0",
+    "glob": "^8.0.3",
+    "mocha": "^10.0.0",
+    "ts-loader": "^9.4.1",
+    "typescript": "^4.8.4",
+    "webpack": "^5.74.0",
+    "webpack-cli": "^4.10.0"
   }
 }

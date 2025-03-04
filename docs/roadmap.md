@@ -2,7 +2,21 @@
 
 This document outlines our plans for future development of Llama Coder. Features and timelines may change based on community feedback and priorities.
 
+## Recently Completed
+
+- [x] **CodeContext RAG System**: A powerful retrieval system that uses your codebase to improve completions
+  - Indexes your codebase to provide project-specific completions
+  - Retrieves relevant code snippets based on what you're working on
+  - Optimizes context usage for better completions
+  - Works completely offline and respects your privacy
+
 ## Short-term Goals (Next 3 Months)
+
+### CodeContext Improvements
+- [ ] Add natural language search in CodeContext
+- [ ] Implement hybrid search (combining lexical and semantic search)
+- [ ] Create UI for managing and exploring the code index
+- [ ] Add support for remote indexing for large codebases
 
 ### Performance Improvements
 - [ ] Implement streaming completions for faster response time
@@ -25,6 +39,7 @@ This document outlines our plans for future development of Llama Coder. Features
 ## Mid-term Goals (3-6 Months)
 
 ### Advanced Features
+- [ ] Expand CodeContext with cross-repository awareness
 - [ ] Add support for chat-like interactions for explaining code
 - [ ] Implement function signature auto-completion
 - [ ] Create test generation capabilities

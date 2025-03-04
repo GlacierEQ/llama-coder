@@ -26,6 +26,19 @@ Access these settings through VS Code's settings interface (Ctrl+, / Cmd+,) and 
 | `llamaCoder.useFilesAsContext` | Include open files as context | `true` |
 | `llamaCoder.maxContextFiles` | Maximum number of files to include | `5` |
 
+### CodeContext RAG Settings
+
+| Setting | Description | Default |
+|---------|-------------|---------|
+| `llamaCoder.codecontext.enabled` | Enable/disable the CodeContext RAG system | `false` |
+| `llamaCoder.codecontext.indexDepth` | Index depth: "basic", "standard", or "full" | `"standard"` |
+| `llamaCoder.codecontext.maxIndexSize` | Maximum size of the codebase index (MB) | `2048` |
+| `llamaCoder.codecontext.retrievalCount` | Number of code snippets to retrieve | `5` |
+| `llamaCoder.codecontext.similarityThreshold` | Minimum similarity for retrieved snippets (0.0-1.0) | `0.75` |
+| `llamaCoder.codecontext.realtimeIndexing` | Update index in real-time as files change | `true` |
+| `llamaCoder.codecontext.excludedPaths` | Paths to exclude from indexing | `["node_modules", "dist", ".git"]` |
+| `llamaCoder.codecontext.memoryOptimized` | Optimize for lower memory usage | `false` |
+
 ### Performance Settings
 
 | Setting | Description | Default |
@@ -50,11 +63,13 @@ You can set language-specific configurations by using VS Code's language-specifi
 ```json
 "[python]": {
   "llamaCoder.model": "codellama:13b-instruct",
-  "llamaCoder.temperature": 0.1
+  "llamaCoder.temperature": 0.1,
+  "llamaCoder.codecontext.retrievalCount": 7
 },
 "[javascript]": {
   "llamaCoder.model": "codellama:7b-instruct",
-  "llamaCoder.temperature": 0.3
+  "llamaCoder.temperature": 0.3,
+  "llamaCoder.codecontext.retrievalCount": 4
 }
 ```
 

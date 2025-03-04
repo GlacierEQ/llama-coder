@@ -20,6 +20,7 @@ Local language models require significant computing power. To improve performanc
 - Use a GPU if available
 - Try quantized models (Q4_0 or Q4_1)
 - Enable caching in settings
+- Adjust CodeContext retrieval settings if enabled
 
 ### Can Llama Coder work offline?
 Yes, once the model is downloaded, Llama Coder works completely offline as everything runs locally.
@@ -32,6 +33,18 @@ No, but strongly recommended. CPU-only operation is possible but may be slow. An
 
 ### Do completions get sent to any remote servers?
 No. All processing happens locally between VS Code, the Llama Coder extension, and your local Ollama installation.
+
+### What is the CodeContext RAG system?
+CodeContext is an advanced retrieval system that indexes your codebase and uses it to provide more relevant completions. It helps the model understand your project's structure, naming conventions, and patterns, resulting in better quality completions that match your coding style.
+
+### Does CodeContext slow down VS Code?
+Initial indexing may take a few minutes for larger codebases, but afterward, the impact is minimal. The system is designed to work efficiently in the background. If you notice performance issues, you can adjust settings like indexing depth or enable memory optimization mode.
+
+### How much memory does CodeContext use?
+The index typically requires 1-2GB of RAM for medium-sized projects. For very large codebases, you can limit the index size in settings. Memory-optimized mode reduces this footprint at a slight cost to retrieval quality.
+
+### Can I disable CodeContext for specific projects?
+Yes, you can create a `.llamacoder.json` file in your project root with `"codecontext.enabled": false` to disable it for that project. You can also exclude specific folders using the `codecontext.excludedPaths` setting.
 
 ## Setup & Configuration
 
@@ -46,6 +59,9 @@ Ensure Ollama is running properly (check with `ollama list` in terminal). The de
 
 ### Can I use Llama Coder with remote development?
 Yes. For VS Code Remote Development, you need to install the extension in both local and remote VS Code instances and have Ollama running on the remote machine.
+
+### How do I set up CodeContext for my project?
+Enable it in settings with `"llamaCoder.codecontext.enabled": true`. The system will automatically begin indexing your project. For detailed configuration options, see the [CodeContext Documentation](./advanced/codecontext-rag.md).
 
 ## Troubleshooting
 

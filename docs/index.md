@@ -27,10 +27,12 @@ Welcome to the Llama Coder documentation. Llama Coder is a self-hosted GitHub Co
 - **[Network Connectivity](./troubleshooting/network-connectivity.md)** - Resolving connection issues
 - **[Performance Issues](./troubleshooting/performance.md)** - Optimizing for better performance
 - **[Common Errors](./troubleshooting/common-errors.md)** - Solutions to frequently encountered problems
+- **[OOM Protection](./troubleshooting/oom-protection.md)** - Preventing out-of-memory issues
 
 ## Advanced Topics
 
 - **[Custom Models](./advanced/custom-models.md)** - Using your own models with Llama Coder
+- **[CodeContext RAG System](./advanced/codecontext-rag.md)** - Leverage your codebase for better completions
 - **[Fine-Tuning](./advanced/fine-tuning.md)** - Fine-tuning models for your codebase
 - **[API Reference](./advanced/api-reference.md)** - Understanding the underlying API
 - **[Security Considerations](./advanced/security.md)** - Best practices for secure usage
