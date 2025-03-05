@@ -5,7 +5,7 @@ module.exports = {
   testMatch: ['**/__tests__/**/*.+(ts|js)', '**/?(*.)+(spec|test).+(ts|js)'],
   globals: {
     'ts-jest': {
-      tsconfig: 'tsconfig.json'
-    }
-  }
+      tsconfig: 'tsconfig.json',
+    },
+  },
 };

@@ -1,0 +1,3 @@
+// Deprecated: Use jest.config.ts instead.
+// ...existing code removed...
+module.exports = null;
