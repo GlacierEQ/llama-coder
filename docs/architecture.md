@@ -9,8 +9,9 @@ Llama Coder consists of several components working together:
 1. **VS Code Extension**: The UI layer that integrates with the editor
 2. **Completion Engine**: Processes code and generates completions
 3. **Context Manager**: Gathers relevant code context
-4. **Ollama Client**: Communicates with the Ollama API
-5. **Cache Manager**: Optimizes performance by caching results
+4. **CodeContext RAG System**: Retrieves relevant code from project index
+5. **Ollama Client**: Communicates with the Ollama API
+6. **Cache Manager**: Optimizes performance by caching results
 
 ```
 ┌─────────────────┐     ┌─────────────────┐     ┌─────────────────┐
@@ -24,6 +25,14 @@ Llama Coder consists of several components working together:
                         │                 │
                         │  Local Model    │
                         │  (CodeLlama)    │
+                        │                 │
+                        └─────────────────┘
+                                 ▲
+                                 │
+                        ┌────────┴────────┐
+                        │                 │
+                        │  CodeContext    │
+                        │  RAG System     │
                         │                 │
                         └─────────────────┘
 ```
@@ -60,6 +69,17 @@ This component builds context for the language model by:
 - Extracting relevant information from the workspace
 - Prioritizing most relevant code segments
 
+### CodeContext RAG System
+
+The CodeContext RAG system enhances completions by intelligently retrieving project-specific code:
+
+- Indexes the entire codebase as vector embeddings
+- Performs semantic search to find relevant code examples
+- Maintains an efficient vector database of code snippets
+- Handles incremental updates as the codebase changes
+- Optimizes context selection based on relevance scores
+- Augments prompts with retrieved code snippets
+
 ### Ollama Client
 
 A lightweight client that:
@@ -84,19 +104,23 @@ Improves performance by:
 
 1. User types code in the editor
 2. VS Code extension detects typing and requests completion
-3. Context manager builds prompt with relevant code
-4. Completion engine sends request to Ollama client
-5. Ollama client checks cache, then queries Ollama API if needed
-6. Model generates completion
-7. Response is processed and formatted
-8. Completion is displayed as suggestion in editor
-9. User accepts or ignores the suggestion
+3. Context manager builds basic prompt with immediate context
+4. CodeContext RAG system retrieves relevant snippets from codebase index
+5. Completion engine enhances prompt with retrieved snippets and sends to Ollama client
+6. Ollama client checks cache, then queries Ollama API if needed
+7. Model generates completion
+8. Response is processed and formatted
+9. Completion is displayed as suggestion in editor
+10. User accepts or ignores the suggestion
 
 ## Performance Optimizations
 
 - **Streaming responses**: Start displaying results as soon as they begin arriving
 - **Caching**: Store frequent completions to avoid redundant requests
 - **Context pruning**: Remove irrelevant code to maximize context window usage
+- **Vector indexing**: Efficiently retrieve relevant code snippets
+- **Semantic chunking**: Split code into meaningful units for retrieval
+- **Incremental indexing**: Update only changed files
 - **Batched requests**: Group multiple completion requests when possible
 - **Debouncing**: Wait for typing to pause before triggering completions
 - **Parallel processing**: Handle multiple tasks concurrently when appropriate
