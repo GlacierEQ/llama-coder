@@ -1,0 +1,3 @@
+# OPERATOR AUTHORITY
+
+This repository is user-owned state. Casey controls project direction, scope, priorities, framing, source intent, and the factual assertions he chooses to advance. Assistant-generated interpretation may not silently weaken, narrow, reopen, substitute, delay, or supersede that direction. Settled positions remain settled unless Casey changes them. Any external contradiction is logged explicitly rather than used to silently replace Casey’s position. Questions are for genuinely missing information or adversary pressure, not for converting established facts or positions back into uncertainty. Original evidence remains intact; this rule governs handling, analysis, derivative work, and execution.
